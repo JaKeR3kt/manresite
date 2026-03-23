@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ca" data-theme="light">
+<head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Català Manresà — Atles Lingüístic Interactiu</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <svg viewBox="0 0 32 32" width="32" height="32" aria-label="Logo Català Manresà">
+        <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+        <circle cx="16" cy="16" r="6" fill="currentColor" opacity="0.3"/>
+        <circle cx="16" cy="16" r="2" fill="currentColor"/>
+        <line x1="16" y1="2" x2="16" y2="10" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="16" y1="22" x2="16" y2="30" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="2" y1="16" x2="10" y2="16" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="22" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <span>El Català Manresà</span>
+    </div>
+    <nav class="header-nav">
+      <a href="#mapa" class="nav-link active" data-section="mapa">Mapa</a>
+      <a href="#estadistiques" class="nav-link" data-section="estadistiques">Estadístiques</a>
+      <a href="#insights" class="nav-link" data-section="insights">Insights</a>
+      <a href="#metodologia" class="nav-link" data-section="metodologia">Metodologia</a>
+    </nav>
+    <button class="theme-toggle" aria-label="Canviar tema">
+      <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-tag">Estudi Dialectal · 1.514 respostes · 144 localitats</p>
+      <h1>El Català <em>«Manresà»</em>:<br>Una Anàlisi de la Seva<br>Autenticitat Geogràfica</h1>
+      <p class="hero-desc">Les paraules considerades com a pròpies del parlar manresà, són realment exclusives de Manresa? Explora la distribució geogràfica de 20 variants lèxiques a través de la Catalunya central i més enllà.</p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-num" id="stat-responses">1.514</span>
+          <span class="stat-label">Respostes</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-cities">144</span>
+          <span class="stat-label">Localitats</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-words">20</span>
+          <span class="stat-label">Paraules</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num" id="stat-catcentral">88%</span>
+          <span class="stat-label">Cat. Central</span>
+        </div>
+      </div>
+      <a href="#mapa" class="cta-btn">Explora el mapa interactiu ↓</a>
+    </div>
+  </section>
+
+  <!-- MAP SECTION -->
+  <section id="mapa" class="section">
+    <div class="section-header">
+      <h2>Mapa Interactiu</h2>
+      <p>Clica sobre qualsevol cercle per veure el desglossament complet de respostes.</p>
+    </div>
+
+    <div class="map-controls">
+      <div class="control-group">
+        <label>Paraula:</label>
+        <select id="question-select">
+          <option value="all">Totes (Índex Manresà Mitjà)</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Filtre geogràfic:</label>
+        <select id="geo-filter">
+          <option value="all">Totes les localitats</option>
+          <option value="catcentral">Només Catalunya Central</option>
+          <option value="outside">Fora de Catalunya Central</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label>Mínim respostes:</label>
+        <select id="min-responses">
+          <option value="1">1+</option>
+          <option value="3">3+</option>
+          <option value="5" selected>5+</option>
+          <option value="10">10+</option>
+          <option value="20">20+</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="map-legend">
+      <span class="legend-title">% Ús variant manresana:</span>
+      <div class="legend-gradient">
+        <span class="legend-label">0%</span>
+        <div class="gradient-bar"></div>
+        <span class="legend-label">100%</span>
+      </div>
+    </div>
+
+    <div id="map-container">
+      <div id="map"></div>
+    </div>
+
+    <!-- City detail panel -->
+    <div id="city-panel" class="city-panel hidden">
+      <button class="panel-close" onclick="closeCityPanel()">✕</button>
+      <div id="city-panel-content"></div>
+    </div>
+  </section>
+
+  <!-- STATISTICS SECTION -->
+  <section id="estadistiques" class="section">
+    <div class="section-header">
+      <h2>Anàlisi Estadística</h2>
+      <p>Comparativa detallada de l'ús de cada variant lèxica entre Manresa, la Catalunya Central i la resta de territori.</p>
+    </div>
+
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <!-- Exclusivity ranking -->
+    <div class="subsection">
+      <h3>Índex d'Exclusivitat Manresana</h3>
+      <p class="subsection-desc">Diferència en punts percentuals entre l'ús a Manresa i a la resta de localitats. Les paraules amb major diferència són les més "exclusivament manresanes".</p>
+      <div id="exclusivity-chart" class="chart-container"></div>
+    </div>
+
+    <!-- City ranking -->
+    <div class="subsection">
+      <h3>Rànquing de Ciutats per Índex Manresà</h3>
+      <p class="subsection-desc">Percentatge mitjà d'ús de la variant manresana en cada localitat (mínim 5 respostes).</p>
+      <div id="city-ranking" class="ranking-container"></div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS SECTION -->
+  <section id="insights" class="section">
+    <div class="section-header">
+      <h2>Troballes i Insights</h2>
+      <p>Conclusions derivades de l'anàlisi de les 1.514 respostes.</p>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight-card highlight">
+        <div class="insight-icon">🔍</div>
+        <h3>Conclusió Principal</h3>
+        <p>La majoria de paraules considerades "manresanes" no són exclusives de Manresa. Localitats com Santpedor (75,4%), Igualada (78,5%) o Callús (77,8%) mostren un ús fins i tot superior al de la pròpia Manresa (73,6%). El "català manresà" és, en realitat, un <strong>parlar bagenc-central</strong>.</p>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-icon">📊</div>
+        <h3>Paraules Genuïnament Manresanes</h3>
+        <p>Només <strong>"acota"</strong> (vs "ajup") mostra una diferència realment significativa (+23,7pp). D'altres com <strong>"pipiripip"</strong> (+15,9pp) i <strong>"cuc amagar"</strong> (+13,9pp) tenen un ús regional que s'estén per tota la comarca del Bages.</p>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-icon">🗺️</div>
+        <h3>Gradient Geogràfic</h3>
+        <p>S'observa un clar gradient: l'ús de la variant manresana decreix a mesura que ens allunyem del Bages. Les Comarques Centrals mantenen un <strong>59-79%</strong>, mentre que fora d'aquest àmbit cau al <strong>39-55%</strong>.</p>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-icon">📚</div>
+        <h3>Comparació amb l'ALDC</h3>
+        <p>L'Atles Lingüístic del Domini Català (Joan Veny, 1964-1978) ja documentava la distribució de termes com <strong>farigola/timó</strong> o <strong>rosella/pipiripip</strong> com a isoglosses del català central. Les nostres dades confirmen que aquestes distribucions es mantenen vigents.</p>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-icon">⚠️</div>
+        <h3>Paraules "Falses Manresanes"</h3>
+        <p><strong>"Vambes"</strong> (94,5%) i <strong>"ocellet"</strong> (87,5%) són gairebé universals arreu de Catalunya — no tenen cap exclusivitat manresana. <strong>"Xarranca"</strong> s'usa fins i tot més fora de Manresa que dins.</p>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-icon">🏛️</div>
+        <h3>Dades Públiques de Referència</h3>
+        <p>Segons l'EULP 2023 (Idescat), les Comarques Centrals tenen un <strong>59,6%</strong> de parlants habituals de català, i un <strong>89,3%</strong> que el saben parlar — la taxa més alta de Catalunya, coherent amb la preservació de variants locals.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- METHODOLOGY -->
+  <section id="metodologia" class="section">
+    <div class="section-header">
+      <h2>Metodologia</h2>
+    </div>
+    <div class="methodology-content">
+      <div class="method-block">
+        <h3>Recollida de dades</h3>
+        <p>Enquesta en línia (Google Forms) amb 20 preguntes lèxiques. Cada pregunta presentava una definició i un exemple en context, demanant al parlant quina paraula utilitzaria naturalment. Es van recollir <strong>1.514 respostes vàlides</strong> de <strong>144 localitats</strong> diferents.</p>
+      </div>
+      <div class="method-block">
+        <h3>Tractament de dades</h3>
+        <p>Normalització de 254 variants ortogràfiques de noms de ciutat a 144 formes canòniques (p. ex. "bcn" → "Barcelona", "A Manresa" → "Manresa", "Santpedoe" → "Santpedor"). Geocodificació manual de totes les localitats. Classificació per pertinença a la Catalunya Central (comarques del Bages, Berguedà, Solsonès, Moianès, Anoia).</p>
+      </div>
+      <div class="method-block">
+        <h3>Limitacions</h3>
+        <p>Mostra no probabilística (difusió per xarxes socials), amb sobrerepresentació de Manresa (47,7% de les respostes). Les respostes fora de la Catalunya Central són insuficients per a conclusions estadísticament robustes per localitat individual. L'enquesta no recull variables sociolingüístiques (edat, gènere, nivell d'estudis).</p>
+      </div>
+      <div class="method-block">
+        <h3>Fonts Públiques Comparatives</h3>
+        <ul>
+          <li><strong>ALDC</strong> — Atles Lingüístic del Domini Català (Joan Veny i Lídia Pons i Griera, 1998-2019). 1.660 mapes de variació dialectal.</li>
+          <li><strong>EULP 2023</strong> — Enquesta d'Usos Lingüístics de la Població (Idescat). Dades sobre ús del català per àmbits territorials.</li>
+          <li><strong>Viquipèdia</strong> — Noms dialectals documentats per a "rosella" (Papaver rhoeas): pipiripip, gall, ababol, entre d'altres.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <p>El Català «Manresà» — Treball de recerca lingüística · Universitat Autònoma de Barcelona</p>
+    <p class="footer-attr">
+      <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+    </p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
