@@ -1172,6 +1172,77 @@ footer p {
 }
 
 /* ============================================
+   Share Section
+   ============================================ */
+
+.share-section {
+  border-top: 1px solid var(--c-border);
+  padding-top: var(--space-6);
+  margin-top: var(--space-6);
+}
+
+.share-section h4 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-4);
+}
+
+.share-buttons {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+  color: var(--c-text);
+  font-family: 'Inter', sans-serif;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.share-ig:hover { border-color: #E1306C; color: #E1306C; }
+.share-x:hover { border-color: #1DA1F2; color: #1DA1F2; }
+.share-wa:hover { border-color: #25D366; color: #25D366; }
+
+.share-ig svg { color: inherit; }
+.share-x svg { color: inherit; }
+.share-wa svg { color: inherit; }
+
+#share-card-preview {
+  margin-top: var(--space-4);
+  text-align: center;
+}
+
+#share-card-preview canvas {
+  max-width: 280px;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+.share-hint {
+  font-size: var(--text-xs);
+  color: var(--c-text-muted);
+  margin-top: var(--space-3);
+  line-height: 1.6;
+}
+
+/* ============================================
    About / Sobre Mi
    ============================================ */
 

@@ -610,8 +610,271 @@ function submitQuizOrigin() {
   document.getElementById('quiz-thanks').classList.remove('hidden');
 }
 
+// ============================================
+// SHARE FUNCTIONS
+// ============================================
+
+function getShareText() {
+  const manresaCount = quizAnswers.filter(a => a === 'manresa').length;
+  const pct = Math.round(manresaCount / quizAnswers.length * 100);
+  const topMatches = predictOrigin(quizAnswers);
+  const bestMatch = topMatches[0] ? topMatches[0][0] : 'Catalunya Central';
+  return { manresaCount, pct, bestMatch, topMatches };
+}
+
+function generateShareCard() {
+  const canvas = document.getElementById('share-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = 1080;
+  const H = 1920;
+  canvas.width = W;
+  canvas.height = H;
+
+  const { manresaCount, pct, bestMatch, topMatches } = getShareText();
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#1a1612');
+  grad.addColorStop(0.4, '#2d1f18');
+  grad.addColorStop(1, '#1a1612');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Subtle accent glow
+  const glowGrad = ctx.createRadialGradient(W/2, H*0.35, 50, W/2, H*0.35, 500);
+  glowGrad.addColorStop(0, 'rgba(196, 93, 53, 0.15)');
+  glowGrad.addColorStop(1, 'rgba(196, 93, 53, 0)');
+  ctx.fillStyle = glowGrad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Draw bridge arches (logo)
+  ctx.strokeStyle = 'rgba(196, 93, 53, 0.6)';
+  ctx.lineWidth = 4;
+  ctx.lineCap = 'round';
+  // Arch 1
+  ctx.beginPath(); ctx.moveTo(380, 320); ctx.quadraticCurveTo(440, 250, 500, 320); ctx.stroke();
+  // Arch 2
+  ctx.beginPath(); ctx.moveTo(500, 320); ctx.quadraticCurveTo(540, 230, 580, 320); ctx.stroke();
+  // Arch 3
+  ctx.beginPath(); ctx.moveTo(580, 320); ctx.quadraticCurveTo(640, 250, 700, 320); ctx.stroke();
+  // Deck
+  ctx.beginPath(); ctx.moveTo(370, 320); ctx.lineTo(710, 320); ctx.stroke();
+
+  // Heart
+  ctx.fillStyle = '#c45d35';
+  ctx.beginPath();
+  const hx = 540, hy = 270;
+  ctx.moveTo(hx, hy);
+  ctx.bezierCurveTo(hx, hy-12, hx-18, hy-18, hx-18, hy-6);
+  ctx.bezierCurveTo(hx-18, hy+8, hx, hy+18, hx, hy+18);
+  ctx.bezierCurveTo(hx, hy+18, hx+18, hy+8, hx+18, hy-6);
+  ctx.bezierCurveTo(hx+18, hy-18, hx, hy-12, hx, hy);
+  ctx.fill();
+
+  // Title
+  ctx.fillStyle = '#c45d35';
+  ctx.font = '600 32px "Space Grotesk", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('EL CATAL\u00c0 MANRES\u00c0', W/2, 400);
+
+  // Subtitle
+  ctx.fillStyle = 'rgba(237, 232, 224, 0.5)';
+  ctx.font = '400 26px "Inter", sans-serif';
+  ctx.fillText('Quiz: D\'on Parles?', W/2, 450);
+
+  // Big percentage circle
+  const cx = W/2, cy = 750, radius = 200;
+  // Track
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 16;
+  ctx.stroke();
+  // Fill arc
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, -Math.PI/2, -Math.PI/2 + (pct/100) * Math.PI * 2);
+  ctx.strokeStyle = '#c45d35';
+  ctx.lineWidth = 16;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+  // Percentage text
+  ctx.fillStyle = '#ede8e0';
+  ctx.font = '700 96px "Space Grotesk", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(pct + '%', cx, cy + 20);
+  ctx.font = '400 28px "Inter", sans-serif';
+  ctx.fillStyle = 'rgba(237, 232, 224, 0.6)';
+  ctx.fillText('manres\u00e0', cx, cy + 65);
+
+  // Verdict
+  ctx.fillStyle = '#ede8e0';
+  ctx.font = '600 42px "Space Grotesk", sans-serif';
+  ctx.textAlign = 'center';
+  // Word-wrap the verdict
+  let verdict = document.getElementById('quiz-result-text').textContent;
+  const maxLineW = W - 160;
+  const verdictLines = wrapText(ctx, verdict, maxLineW);
+  let vy = 1050;
+  verdictLines.forEach(line => {
+    ctx.fillText(line, W/2, vy);
+    vy += 52;
+  });
+
+  // Top 3 matches
+  ctx.fillStyle = 'rgba(237, 232, 224, 0.4)';
+  ctx.font = '500 28px "Inter", sans-serif';
+  ctx.fillText('El teu perfil s\'assembla a:', W/2, vy + 40);
+
+  ctx.fillStyle = '#c45d35';
+  ctx.font = '600 34px "Space Grotesk", sans-serif';
+  const top3 = topMatches.slice(0, 3).map(t => t[0]);
+  ctx.fillText(top3.join('  \u00b7  '), W/2, vy + 90);
+
+  // Stats bar
+  const barY = vy + 160;
+  ctx.fillStyle = 'rgba(255,255,255,0.05)';
+  roundRect(ctx, 80, barY, W-160, 100, 16);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(237, 232, 224, 0.6)';
+  ctx.font = '500 26px "Inter", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(`${manresaCount}/20 paraules manresanes`, W/2, barY + 58);
+
+  // URL at bottom
+  ctx.fillStyle = 'rgba(237, 232, 224, 0.3)';
+  ctx.font = '400 24px "Inter", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Fes el quiz tu tamb\u00e9! \u2193', W/2, H - 160);
+  ctx.fillStyle = '#c45d35';
+  ctx.font = '500 26px "Inter", sans-serif';
+  ctx.fillText('elcatalamanresa.cat', W/2, H - 120);
+
+  // Attribution
+  ctx.fillStyle = 'rgba(237, 232, 224, 0.2)';
+  ctx.font = '400 20px "Inter", sans-serif';
+  ctx.fillText('Adri\u00e0 Sanz Oliva \u00b7 UAB', W/2, H - 60);
+
+  return canvas;
+}
+
+function wrapText(ctx, text, maxWidth) {
+  const words = text.split(' ');
+  const lines = [];
+  let current = '';
+  words.forEach(word => {
+    const test = current ? current + ' ' + word : word;
+    if (ctx.measureText(test).width > maxWidth && current) {
+      lines.push(current);
+      current = word;
+    } else {
+      current = test;
+    }
+  });
+  if (current) lines.push(current);
+  return lines;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h - r);
+  ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+  ctx.lineTo(x + r, y + h);
+  ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function getShareMessage() {
+  const { pct, bestMatch } = getShareText();
+  const siteUrl = window.location.href;
+  return `\ud83c\udfe0 El meu catal\u00e0 \u00e9s ${pct}% manres\u00e0! Segons el quiz del Catal\u00e0 Manres\u00e0, parlo com alg\u00fa de ${bestMatch}. Fes el quiz i descobreix d'on parles tu! \ud83c\udfaf ${siteUrl}`;
+}
+
+function shareToInstagram() {
+  const canvas = generateShareCard();
+  const preview = document.getElementById('share-card-preview');
+  preview.classList.remove('hidden');
+
+  // Create downloadable blob
+  canvas.toBlob(function(blob) {
+    const url = URL.createObjectURL(blob);
+    const link = document.getElementById('share-download-link');
+    link.href = url;
+    link.download = 'catala-manresa-quiz.png';
+    link.style.display = 'inline-block';
+    link.textContent = 'Descarrega la imatge';
+
+    // Try native share (mobile)
+    if (navigator.share && navigator.canShare) {
+      const file = new File([blob], 'catala-manresa-quiz.png', { type: 'image/png' });
+      if (navigator.canShare({ files: [file] })) {
+        navigator.share({
+          files: [file],
+          title: 'El Catal\u00e0 Manres\u00e0 - Quiz',
+          text: getShareMessage()
+        }).catch(() => {});
+      }
+    }
+
+    document.getElementById('share-hint').textContent =
+      'Descarrega la imatge i puja-la com a Story a Instagram. Al m\u00f2bil, pot ser que s\'obri directament el compartidor del sistema!';
+  }, 'image/png');
+
+  preview.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function shareToX() {
+  const { pct, bestMatch } = getShareText();
+  const siteUrl = window.location.href;
+  const text = `\ud83c\udfaf El meu catal\u00e0 \u00e9s ${pct}% manres\u00e0! Parlo com alg\u00fa de ${bestMatch}. Fes el quiz i descobreix d'on parles tu!`;
+  const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(siteUrl)}`;
+  window.open(xUrl, '_blank', 'noopener,noreferrer');
+
+  // Also generate the card for reference
+  generateShareCard();
+  document.getElementById('share-card-preview').classList.remove('hidden');
+  document.getElementById('share-hint').textContent = 'Publicaci\u00f3 oberta a X. Tamb\u00e9 pots descarregar la imatge per adjuntar-la!';
+  
+  const canvas = document.getElementById('share-canvas');
+  canvas.toBlob(function(blob) {
+    const url = URL.createObjectURL(blob);
+    const link = document.getElementById('share-download-link');
+    link.href = url;
+    link.download = 'catala-manresa-quiz.png';
+    link.style.display = 'inline-block';
+    link.textContent = 'Descarrega la imatge';
+  }, 'image/png');
+}
+
+function shareToWhatsApp() {
+  const msg = getShareMessage();
+  const waUrl = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+  window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+  // Also generate the card
+  generateShareCard();
+  document.getElementById('share-card-preview').classList.remove('hidden');
+  document.getElementById('share-hint').textContent = 'Missatge obert a WhatsApp. Tamb\u00e9 pots descarregar la imatge i enviar-la al grup!';
+
+  const canvas = document.getElementById('share-canvas');
+  canvas.toBlob(function(blob) {
+    const url = URL.createObjectURL(blob);
+    const link = document.getElementById('share-download-link');
+    link.href = url;
+    link.download = 'catala-manresa-quiz.png';
+    link.style.display = 'inline-block';
+    link.textContent = 'Descarrega la imatge';
+  }, 'image/png');
+}
+
 function restartQuiz() {
   initQuiz();
+  // Also hide share preview on restart
+  document.getElementById('share-card-preview').classList.add('hidden');
   document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -631,3 +894,6 @@ window.closeCityPanel = closeCityPanel;
 window.selectQuizAnswer = selectQuizAnswer;
 window.submitQuizOrigin = submitQuizOrigin;
 window.restartQuiz = restartQuiz;
+window.shareToInstagram = shareToInstagram;
+window.shareToX = shareToX;
+window.shareToWhatsApp = shareToWhatsApp;
