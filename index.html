@@ -28,22 +28,30 @@
 <header class="site-header">
   <div class="header-inner">
     <div class="logo">
-      <svg viewBox="0 0 32 32" width="32" height="32" aria-label="Logo Català Manresà">
-        <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
-        <circle cx="16" cy="16" r="6" fill="currentColor" opacity="0.3"/>
-        <circle cx="16" cy="16" r="2" fill="currentColor"/>
-        <line x1="16" y1="2" x2="16" y2="10" stroke="currentColor" stroke-width="1.5"/>
-        <line x1="16" y1="22" x2="16" y2="30" stroke="currentColor" stroke-width="1.5"/>
-        <line x1="2" y1="16" x2="10" y2="16" stroke="currentColor" stroke-width="1.5"/>
-        <line x1="22" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="1.5"/>
+      <!-- Pont Vell de Manresa + Cor -->
+      <svg viewBox="0 0 48 32" width="48" height="32" aria-label="Logo — Pont Vell de Manresa amb cor">
+        <!-- Bridge arches -->
+        <path d="M2 28 Q8 16 14 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M14 28 Q20 14 26 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M26 28 Q32 16 38 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- Bridge deck -->
+        <line x1="0" y1="28" x2="40" y2="28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <!-- Bridge pillars -->
+        <line x1="14" y1="28" x2="14" y2="30" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="26" y1="28" x2="26" y2="30" stroke="currentColor" stroke-width="1.5"/>
+        <!-- Water line -->
+        <path d="M0 31 Q5 29.5 10 31 Q15 32.5 20 31 Q25 29.5 30 31 Q35 32.5 40 31" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.4"/>
+        <!-- Heart above center arch -->
+        <path d="M20 8 C20 5, 16 3, 16 6 C16 9, 20 12, 20 12 C20 12, 24 9, 24 6 C24 3, 20 5, 20 8Z" fill="#c45d35" stroke="none"/>
       </svg>
       <span>El Català Manresà</span>
     </div>
     <nav class="header-nav">
       <a href="#mapa" class="nav-link active" data-section="mapa">Mapa</a>
+      <a href="#quiz" class="nav-link" data-section="quiz">Quiz</a>
       <a href="#estadistiques" class="nav-link" data-section="estadistiques">Estadístiques</a>
       <a href="#insights" class="nav-link" data-section="insights">Insights</a>
-      <a href="#metodologia" class="nav-link" data-section="metodologia">Metodologia</a>
+      <a href="#sobre-mi" class="nav-link" data-section="sobre-mi">Sobre mi</a>
     </nav>
     <button class="theme-toggle" aria-label="Canviar tema">
       <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
@@ -61,23 +69,71 @@
       <p class="hero-desc">Les paraules considerades com a pròpies del parlar manresà, són realment exclusives de Manresa? Explora la distribució geogràfica de 20 variants lèxiques a través de la Catalunya central i més enllà.</p>
       <div class="hero-stats">
         <div class="stat-card">
-          <span class="stat-num" id="stat-responses">1.514</span>
+          <span class="stat-num">1.514</span>
           <span class="stat-label">Respostes</span>
         </div>
         <div class="stat-card">
-          <span class="stat-num" id="stat-cities">144</span>
+          <span class="stat-num">144</span>
           <span class="stat-label">Localitats</span>
         </div>
         <div class="stat-card">
-          <span class="stat-num" id="stat-words">20</span>
+          <span class="stat-num">20</span>
           <span class="stat-label">Paraules</span>
         </div>
         <div class="stat-card">
-          <span class="stat-num" id="stat-catcentral">88%</span>
+          <span class="stat-num">88%</span>
           <span class="stat-label">Cat. Central</span>
         </div>
       </div>
-      <a href="#mapa" class="cta-btn">Explora el mapa interactiu ↓</a>
+      <div class="hero-ctas">
+        <a href="#quiz" class="cta-btn">Fes el quiz — D'on ets? 🎯</a>
+        <a href="#mapa" class="cta-btn cta-secondary">Explora el mapa ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ SECTION -->
+  <section id="quiz" class="section">
+    <div class="section-header">
+      <h2>Quiz: D'on Parles?</h2>
+      <p>Respon les 20 preguntes i descobrirem d'on crec que ets segons les teves respostes. Al final, podràs dir-nos d'on ets realment.</p>
+    </div>
+
+    <div id="quiz-container">
+      <div id="quiz-progress">
+        <div class="progress-bar">
+          <div class="progress-fill" id="quiz-progress-fill"></div>
+        </div>
+        <span class="progress-text" id="quiz-progress-text">Pregunta 1 de 20</span>
+      </div>
+
+      <div id="quiz-question-area">
+        <div class="quiz-question-card" id="quiz-card">
+          <div class="quiz-q-number" id="quiz-q-num">1</div>
+          <p class="quiz-q-desc" id="quiz-q-desc"></p>
+          <div class="quiz-options" id="quiz-options"></div>
+        </div>
+      </div>
+
+      <div id="quiz-result" class="hidden">
+        <div class="quiz-result-card">
+          <div class="quiz-result-icon">🎯</div>
+          <h3>Resultat del teu parlar</h3>
+          <p class="quiz-result-text" id="quiz-result-text"></p>
+          <div class="quiz-result-details" id="quiz-result-details"></div>
+          
+          <div class="quiz-origin-ask" id="quiz-origin-ask">
+            <h4>I tu, d'on ets realment?</h4>
+            <p>Ajuda'ns a millorar l'estudi indicant la teva localitat real.</p>
+            <input type="text" id="quiz-origin-input" placeholder="Ex: Manresa, Santpedor, Barcelona..." class="quiz-input">
+            <button class="cta-btn" onclick="submitQuizOrigin()">Enviar</button>
+          </div>
+          <div id="quiz-thanks" class="hidden">
+            <p class="quiz-thanks-text">Gràcies per participar! La teva resposta ens ajudarà a fer un millor estudi.</p>
+          </div>
+          <button class="cta-btn cta-secondary" onclick="restartQuiz()" style="margin-top:var(--space-4)">Torna a fer el quiz</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -128,7 +184,6 @@
       <div id="map"></div>
     </div>
 
-    <!-- City detail panel -->
     <div id="city-panel" class="city-panel hidden">
       <button class="panel-close" onclick="closeCityPanel()">✕</button>
       <div id="city-panel-content"></div>
@@ -142,16 +197,25 @@
       <p>Comparativa detallada de l'ús de cada variant lèxica entre Manresa, la Catalunya Central i la resta de territori.</p>
     </div>
 
+    <!-- PP EXPLANATION -->
+    <div class="pp-explainer">
+      <div class="pp-icon">📐</div>
+      <div class="pp-content">
+        <h3>Què volen dir els «pp»?</h3>
+        <p><strong>pp</strong> significa <strong>punts percentuals</strong> (en anglès, <em>percentage points</em>). És la mesura que fem servir per expressar la diferència entre dos percentatges.</p>
+        <p>Per exemple, si a Manresa un 74,1% de gent diu <em>«acota»</em> i a la resta de localitats ho diu un 50,4%, la diferència és de <strong>+23,7pp</strong>. Això vol dir que l'ús d'<em>«acota»</em> és 23,7 punts percentuals més alt a Manresa que a la resta.</p>
+        <p>Com més alt el valor en pp, més «exclusiva» és la paraula d'aquella zona. Un valor negatiu indica que la paraula s'usa <em>menys</em> a Manresa que a la resta.</p>
+      </div>
+    </div>
+
     <div class="stats-grid" id="stats-grid"></div>
 
-    <!-- Exclusivity ranking -->
     <div class="subsection">
       <h3>Índex d'Exclusivitat Manresana</h3>
       <p class="subsection-desc">Diferència en punts percentuals entre l'ús a Manresa i a la resta de localitats. Les paraules amb major diferència són les més "exclusivament manresanes".</p>
       <div id="exclusivity-chart" class="chart-container"></div>
     </div>
 
-    <!-- City ranking -->
     <div class="subsection">
       <h3>Rànquing de Ciutats per Índex Manresà</h3>
       <p class="subsection-desc">Percentatge mitjà d'ús de la variant manresana en cada localitat (mínim 5 respostes).</p>
@@ -233,11 +297,54 @@
       </div>
     </div>
   </section>
+
+  <!-- SOBRE MI -->
+  <section id="sobre-mi" class="section">
+    <div class="section-header">
+      <h2>Sobre Mi</h2>
+    </div>
+    <div class="about-container">
+      <div class="about-photo">
+        <img src="./assets/adria.jpg" alt="Adrià Sanz Oliva" loading="lazy">
+      </div>
+      <div class="about-text">
+        <h3>Adrià Sanz Oliva</h3>
+        <p class="about-role">Estudiant de Traducció i Interpretació — UAB</p>
+        <p>Soc l'Adrià, manresà de tota la vida i estudiant de Traducció i Interpretació a la Universitat Autònoma de Barcelona. Des de petit he crescut envoltat del català de Manresa, amb les seves paraules i expressions que sempre m'han semblat tan naturals com respirar.</p>
+        <p>Però un dia em vaig preguntar: <em>fins a quin punt el manresà és realment manresà?</em> Les paraules que diem a casa, al carrer, amb els amics — són realment exclusives de Manresa o les compartim amb la resta de la Catalunya central?</p>
+        <p>Aquesta curiositat va néixer a primer de carrera com un treball per l'assignatura de català, però se'm va fer massa gran. Vaig crear una enquesta que va arribar a 1.500 persones i vaig decidir deixar-ho per al meu Treball de Fi de Grau. Aquí tens el resultat: un atles lingüístic interactiu del parlar manresà.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTA'M -->
+  <section id="contacte" class="section">
+    <div class="section-header">
+      <h2>Contacta'm</h2>
+      <p>Si tens preguntes, suggeriments o vols col·laborar en l'estudi, no dubtis a escriure'm.</p>
+    </div>
+    <div class="contact-grid">
+      <a href="mailto:adria020704@gmail.com" class="contact-card" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+        </div>
+        <h3>Correu electrònic</h3>
+        <p>adria020704@gmail.com</p>
+      </a>
+      <a href="https://instagram.com/aadria2" class="contact-card" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <h3>Instagram</h3>
+        <p>@aadria2</p>
+      </a>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="footer-inner">
-    <p>El Català «Manresà» — Treball de recerca lingüística · Universitat Autònoma de Barcelona</p>
+    <p>El Català «Manresà» — Treball de recerca lingüística · Adrià Sanz Oliva · Universitat Autònoma de Barcelona</p>
     <p class="footer-attr">
       <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
     </p>
