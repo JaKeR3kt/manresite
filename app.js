@@ -1097,6 +1097,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMap();
   initQuiz();
   initGames();
+  initTraduccio();
   initInstallBanner();
   renderStatistics();
   renderExclusivityChart();
