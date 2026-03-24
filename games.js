@@ -5,7 +5,7 @@
 // ---- COMARCA DATA with SVG paths (simplified polygons) ----
 const COMARQUES = {
   'Bages': {
-    path: 'M 220,180 L 280,160 L 340,170 L 360,200 L 350,260 L 320,290 L 270,300 L 230,280 L 200,240 L 210,200 Z',
+    path: 'M 185,208 L 192,205 L 203,218 L 217,215 L 218,221 L 225,225 L 225,229 L 240,231 L 255,227 L 259,224 L 275,234 L 277,229 L 284,229 L 292,234 L 295,227 L 293,223 L 294,218 L 318,204 L 326,203 L 333,227 L 339,228 L 340,225 L 335,221 L 337,210 L 345,206 L 340,202 L 346,202 L 349,205 L 355,203 L 362,207 L 358,218 L 361,221 L 362,231 L 369,234 L 369,239 L 381,237 L 385,234 L 396,236 L 389,290 L 380,290 L 372,293 L 368,300 L 371,306 L 367,311 L 368,315 L 359,324 L 360,327 L 354,328 L 357,337 L 355,343 L 351,345 L 353,350 L 349,353 L 352,362 L 329,369 L 320,366 L 320,363 L 316,360 L 314,362 L 309,358 L 304,359 L 295,366 L 297,383 L 288,386 L 285,383 L 283,386 L 284,396 L 270,396 L 261,390 L 249,387 L 248,382 L 251,372 L 246,371 L 246,364 L 240,365 L 239,368 L 222,368 L 209,382 L 200,382 L 193,373 L 194,367 L 188,363 L 183,364 L 180,369 L 176,360 L 178,357 L 173,354 L 175,351 L 171,349 L 174,345 L 170,342 L 164,344 L 161,340 L 155,342 L 144,333 L 148,330 L 156,328 L 166,332 L 163,325 L 155,323 L 161,310 L 160,305 L 154,302 L 160,301 L 163,295 L 157,287 L 159,283 L 168,280 L 170,273 L 167,270 L 177,266 L 175,264 L 177,259 L 171,247 L 163,246 L 155,251 L 148,248 L 152,242 L 155,241 L 157,244 L 163,236 L 170,234 L 180,224 L 187,223 L 182,216 L 186,215 L 184,211 L 185,208 Z',
     capital: 'Manresa',
     poblacio: 175095,
     hint: 'La seva capital és la ciutat més poblada de la Catalunya Central.',
@@ -14,7 +14,7 @@ const COMARQUES = {
     municipis: ['Aguilar de Segarra','Artés','Avinyó','Balsareny','Callús','Cardona','Castellbell i el Vilar','Castellfollit del Boix','Castellgalí','Castellnou de Bages','Fonollosa','Gaià','Manresa','Marganell','Monistrol de Montserrat','Mura','Navarcles','Navàs','El Pont de Vilomara i Rocafort','Rajadell','Sallent','Sant Feliu Sasserra','Sant Fruitós de Bages','Sant Joan de Vilatorrada','Sant Mateu de Bages','Sant Salvador de Guardiola','Sant Vicenç de Castellet','Santpedor','Súria','Talamanca']
   },
   'Berguedà': {
-    path: 'M 200,40 L 260,30 L 320,50 L 340,90 L 330,140 L 290,160 L 240,165 L 200,140 L 180,100 L 190,60 Z',
+    path: 'M 327,26 L 339,32 L 355,27 L 379,36 L 378,40 L 373,42 L 367,47 L 366,52 L 360,56 L 361,60 L 356,68 L 361,75 L 368,72 L 372,73 L 371,85 L 375,86 L 376,93 L 373,96 L 364,94 L 358,101 L 349,101 L 345,98 L 350,92 L 346,89 L 347,87 L 331,84 L 331,94 L 340,93 L 350,107 L 349,109 L 362,109 L 364,112 L 371,113 L 380,119 L 340,130 L 338,160 L 340,180 L 345,192 L 340,202 L 337,210 L 335,221 L 340,225 L 339,228 L 333,227 L 326,203 L 318,204 L 294,218 L 293,223 L 295,227 L 292,234 L 284,229 L 277,229 L 275,234 L 259,224 L 255,227 L 240,231 L 225,229 L 225,225 L 218,221 L 217,215 L 203,218 L 192,205 L 185,208 L 184,202 L 186,197 L 190,197 L 193,194 L 197,195 L 194,200 L 201,203 L 218,194 L 216,191 L 217,186 L 212,185 L 212,182 L 209,179 L 204,183 L 209,190 L 207,194 L 202,189 L 191,190 L 192,186 L 187,183 L 188,176 L 194,179 L 209,171 L 206,163 L 201,161 L 199,166 L 195,163 L 198,155 L 205,147 L 203,146 L 205,141 L 212,144 L 219,139 L 220,134 L 211,131 L 214,125 L 209,120 L 208,117 L 215,107 L 219,108 L 227,102 L 226,95 L 223,91 L 221,101 L 213,103 L 205,97 L 200,96 L 189,101 L 182,85 L 169,83 L 168,77 L 175,63 L 189,55 L 202,54 L 206,50 L 204,44 L 196,42 L 197,39 L 225,40 L 226,37 L 237,35 L 245,37 L 257,31 L 270,31 L 278,26 L 291,25 L 298,21 L 304,20 L 310,23 L 315,22 L 321,27 L 324,24 L 327,26 Z',
     capital: 'Berga',
     poblacio: 39013,
     hint: 'Comarca pirinenca coneguda pel riu Llobregat i els seus orígens.',
@@ -23,7 +23,7 @@ const COMARQUES = {
     municipis: ['Avià','Bagà','Berga','Borredà','Capolat','Casserres','Castell de l\'Areny','Castellar de n\'Hug','Castellar del Riu','Cercs','Espunyola','Fígols','Gironella','Gisclareny','Gósol','Guardiola de Berguedà','Montclar','Montmajor','Olvan','La Pobla de Lillet','Puig-reig','La Quar','Sagàs','Saldes','Sant Jaume de Frontanyà','Sant Julià de Cerdanyola','Santa Maria de Merlès','Vallcebre','Vilada','Viver i Serrateix']
   },
   'Solsonès': {
-    path: 'M 100,80 L 160,60 L 200,80 L 210,130 L 200,170 L 160,190 L 120,180 L 90,140 L 90,100 Z',
+    path: 'M 21,208 L 20,204 L 22,203 L 25,196 L 29,193 L 28,189 L 40,191 L 54,186 L 51,174 L 53,162 L 51,146 L 49,148 L 39,145 L 36,137 L 37,127 L 52,119 L 55,110 L 61,107 L 69,108 L 78,104 L 85,104 L 92,110 L 103,106 L 126,91 L 129,87 L 129,81 L 142,78 L 161,83 L 182,85 L 189,101 L 200,96 L 205,97 L 213,103 L 221,101 L 223,91 L 226,95 L 227,102 L 219,108 L 215,107 L 208,117 L 209,120 L 214,125 L 211,131 L 220,134 L 219,139 L 212,144 L 205,141 L 203,146 L 205,147 L 198,155 L 195,163 L 199,166 L 201,161 L 206,163 L 209,171 L 194,179 L 188,176 L 187,183 L 192,186 L 191,190 L 202,189 L 207,194 L 209,190 L 204,183 L 209,179 L 212,182 L 212,185 L 217,186 L 216,191 L 218,194 L 201,203 L 194,200 L 197,195 L 193,194 L 190,197 L 186,197 L 184,202 L 185,208 L 184,211 L 186,215 L 182,216 L 187,223 L 180,224 L 170,234 L 163,236 L 157,244 L 155,241 L 152,242 L 148,248 L 155,251 L 163,246 L 171,247 L 177,259 L 175,264 L 177,266 L 167,270 L 170,273 L 168,280 L 159,283 L 157,287 L 163,295 L 160,301 L 154,302 L 151,298 L 145,301 L 145,304 L 139,304 L 137,311 L 130,310 L 132,308 L 122,304 L 119,295 L 115,294 L 110,295 L 111,301 L 101,304 L 99,301 L 104,298 L 104,289 L 116,279 L 105,272 L 114,267 L 119,259 L 116,254 L 118,252 L 117,236 L 110,234 L 100,245 L 92,243 L 83,233 L 75,229 L 71,230 L 61,223 L 49,229 L 49,234 L 41,235 L 40,240 L 33,241 L 33,232 L 29,225 L 22,227 L 28,220 L 31,213 L 21,208 Z',
     capital: 'Solsona',
     poblacio: 13360,
     hint: 'Comarca amb la capital més petita de la Catalunya Central.',
@@ -32,7 +32,7 @@ const COMARQUES = {
     municipis: ['Castellar de la Ribera','Clariana de Cardener','La Coma i la Pedra','Guixers','Lladurs','Llobera','La Molsosa','Navès','Odèn','Olius','Pinell de Solsonès','Pinós','Riner','Sant Llorenç de Morunys','Solsona','Torà','Biosca']
   },
   'Moianès': {
-    path: 'M 300,170 L 350,160 L 380,180 L 390,210 L 370,240 L 340,250 L 310,240 L 295,210 L 295,185 Z',
+    path: 'M 396,236 L 411,233 L 414,237 L 411,243 L 404,245 L 407,248 L 406,254 L 414,261 L 418,261 L 420,267 L 419,275 L 424,282 L 422,285 L 432,292 L 434,302 L 434,314 L 432,318 L 436,325 L 420,328 L 405,322 L 392,318 L 380,310 L 372,306 L 368,300 L 367,294 L 370,290 L 375,292 L 378,294 L 385,294 L 389,301 L 406,299 L 411,293 L 421,292 L 426,288 L 422,285 L 424,282 L 419,275 L 420,267 L 418,261 L 414,261 L 406,254 L 407,248 L 404,245 L 411,243 L 414,237 L 411,233 L 396,236 Z',
     capital: 'Moià',
     poblacio: 13279,
     hint: 'La comarca més jove de Catalunya, creada el 2015.',
@@ -41,7 +41,7 @@ const COMARQUES = {
     municipis: ['Calders','Castellcir','Castellterçol','Collsuspina','L\'Estany','Granera','Moià','Monistrol de Calders','Sant Quirze Safaja','Santa Maria d\'Oló']
   },
   'Osona': {
-    path: 'M 350,80 L 420,60 L 470,90 L 480,140 L 460,190 L 420,210 L 380,200 L 350,170 L 340,130 L 340,100 Z',
+    path: 'M 380,119 L 394,114 L 393,122 L 405,128 L 414,118 L 422,116 L 433,117 L 434,122 L 439,122 L 445,119 L 443,117 L 445,113 L 479,114 L 481,110 L 480,105 L 474,102 L 476,101 L 484,101 L 487,105 L 504,99 L 521,98 L 525,100 L 513,103 L 509,109 L 509,115 L 522,122 L 519,128 L 522,133 L 531,133 L 529,141 L 535,149 L 544,154 L 555,146 L 561,147 L 566,153 L 568,151 L 573,151 L 576,156 L 569,159 L 570,162 L 580,170 L 577,175 L 575,175 L 575,180 L 578,180 L 577,185 L 563,189 L 572,193 L 568,195 L 564,200 L 565,202 L 555,203 L 548,199 L 544,202 L 550,207 L 548,213 L 564,218 L 568,222 L 569,229 L 557,240 L 552,240 L 551,245 L 556,248 L 553,257 L 550,257 L 548,261 L 542,260 L 540,266 L 543,269 L 537,273 L 535,277 L 536,286 L 539,287 L 533,288 L 523,284 L 514,293 L 515,304 L 501,308 L 498,296 L 487,290 L 480,294 L 468,290 L 461,299 L 463,307 L 461,313 L 467,316 L 468,324 L 436,325 L 432,318 L 434,314 L 434,302 L 432,292 L 396,236 L 393,221 L 395,210 L 394,114 L 380,119 Z',
     capital: 'Vic',
     poblacio: 156572,
     hint: 'Comarca amb una plana interior famosa per les seves boires.',
@@ -50,7 +50,7 @@ const COMARQUES = {
     municipis: ['Aiguafreda','Balenyà','Brull','Calldetenes','Centelles','Espinelves','Folgueroles','Gurb','Les Masies de Roda','Les Masies de Voltregà','Manlleu','Malla','Montesquiu','Muntanyola','Oristà','Orís','El Brull','Prats de Lluçanès','Roda de Ter','Rupit i Pruit','Sant Boi de Lluçanès','Sant Bartomeu del Grau','Sant Hipòlit de Voltregà','Sant Julià de Vilatorta','Sant Martí d\'Albars','Sant Pere de Torelló','Sant Quirze de Besora','Sant Sadurní d\'Osormort','Sant Vicenç de Torelló','Santa Cecília de Voltregà','Santa Eugènia de Berga','Santa Eulàlia de Riuprimer','Seva','Sobremunt','Sora','Taradell','Tavèrnoles','Tona','Torelló','Vic','Vidrà','Viladrau','Vilanova de Sau']
   },
   'Anoia': {
-    path: 'M 150,250 L 210,230 L 250,250 L 260,290 L 240,330 L 200,350 L 160,340 L 130,310 L 130,270 Z',
+    path: 'M 104,289 L 104,298 L 99,301 L 101,304 L 111,301 L 110,295 L 115,294 L 119,295 L 122,304 L 132,308 L 130,310 L 137,311 L 139,304 L 145,304 L 145,301 L 151,298 L 160,305 L 161,310 L 155,323 L 163,325 L 166,332 L 156,328 L 148,330 L 144,333 L 155,342 L 161,340 L 164,344 L 170,342 L 174,345 L 171,349 L 175,351 L 173,354 L 178,357 L 176,360 L 180,369 L 183,364 L 188,363 L 194,367 L 193,373 L 200,382 L 209,382 L 222,368 L 239,368 L 240,365 L 246,364 L 246,371 L 251,372 L 248,382 L 249,387 L 261,390 L 258,404 L 253,411 L 254,413 L 262,415 L 266,422 L 273,430 L 279,433 L 279,440 L 275,440 L 265,452 L 260,453 L 256,457 L 252,455 L 250,460 L 243,463 L 244,469 L 241,471 L 231,467 L 232,465 L 209,457 L 200,440 L 182,440 L 166,437 L 168,441 L 163,441 L 163,447 L 155,448 L 149,453 L 149,458 L 155,463 L 158,463 L 161,468 L 150,472 L 147,469 L 142,469 L 118,480 L 115,476 L 106,476 L 103,472 L 110,463 L 110,456 L 105,454 L 105,450 L 95,450 L 92,446 L 81,444 L 70,437 L 71,429 L 75,425 L 83,427 L 87,423 L 93,424 L 92,416 L 87,418 L 84,415 L 95,408 L 80,401 L 77,401 L 75,404 L 67,404 L 68,400 L 74,397 L 74,392 L 68,392 L 52,385 L 65,379 L 67,374 L 93,373 L 94,368 L 86,365 L 83,360 L 83,356 L 78,353 L 81,348 L 72,347 L 72,343 L 69,343 L 71,338 L 62,337 L 82,322 L 72,317 L 76,302 L 78,302 L 80,294 L 78,292 L 83,288 L 99,290 L 104,289 Z',
     capital: 'Igualada',
     poblacio: 120000,
     hint: 'Comarca que connecta la depressió central amb el litoral.',
@@ -59,7 +59,7 @@ const COMARQUES = {
     municipis: ['Argençola','Bellprat','El Bruc','Cabrera d\'Anoia','Calaf','Calonge de Segarra','Capellades','Carme','Castellfollit de Riubregós','Castellolí','Copons','Els Hostalets de Pierola','Igualada','Jorba','La Llacuna','Masquefa','Montmaneu','Òdena','Orpí','Piera','La Pobla de Claramunt','Pujalt','Rubió','Sant Martí de Tous','Sant Martí Sesgueioles','Santa Margarida de Montbui','La Torre de Claramunt','Vallbona d\'Anoia','Veciana','Vilanova del Camí']
   },
   'Lluçanès': {
-    path: 'M 300,60 L 350,50 L 380,70 L 385,110 L 365,140 L 330,150 L 300,135 L 290,100 L 290,75 Z',
+    path: 'M 340,130 L 355,120 L 371,113 L 380,119 L 394,114 L 395,210 L 393,221 L 396,236 L 385,234 L 381,237 L 369,239 L 369,234 L 362,231 L 361,221 L 358,218 L 362,207 L 355,203 L 349,205 L 346,202 L 340,202 L 345,192 L 340,180 L 338,160 L 340,130 Z',
     capital: 'Prats de Lluçanès',
     poblacio: 8000,
     hint: 'La comarca més recent de Catalunya, creada el 2023.',
@@ -265,6 +265,9 @@ function showGameQuestion() {
       <div class="hud-item">
         <span class="hud-label">Dificultat</span>
         <span class="hud-value">${diff.emoji} ${diff.name}</span>
+      </div>
+      <div class="hud-item">
+        <button class="hud-reset-btn" onclick="confirmResetGame()">↺ Reiniciar</button>
       </div>
     </div>
     ${mapHtml}
@@ -478,6 +481,39 @@ function showGameResult() {
   `;
 }
 
+function confirmResetGame() {
+  // Show confirmation overlay
+  const play = document.getElementById('game-play');
+  const existing = document.getElementById('reset-confirm-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'reset-confirm-overlay';
+  overlay.className = 'reset-overlay';
+  overlay.innerHTML = `
+    <div class="reset-dialog">
+      <p>N'est\u00e0s segur que vols reiniciar la partida?</p>
+      <p class="reset-sub">Perdràs tot el progrés actual.</p>
+      <div class="reset-actions">
+        <button class="cta-btn" onclick="doResetGame()">Sí, reinicia</button>
+        <button class="cta-btn cta-secondary" onclick="cancelReset()">No, continua</button>
+      </div>
+    </div>
+  `;
+  play.appendChild(overlay);
+}
+
+function doResetGame() {
+  const overlay = document.getElementById('reset-confirm-overlay');
+  if (overlay) overlay.remove();
+  startGame();
+}
+
+function cancelReset() {
+  const overlay = document.getElementById('reset-confirm-overlay');
+  if (overlay) overlay.remove();
+}
+
 function restartGame() {
   startGame();
 }
@@ -536,5 +572,8 @@ window.guessComarca = guessComarca;
 window.guessMunicipi = guessMunicipi;
 window.restartGame = restartGame;
 window.backToSetup = backToSetup;
+window.confirmResetGame = confirmResetGame;
+window.doResetGame = doResetGame;
+window.cancelReset = cancelReset;
 window.showRandomFact = showRandomFact;
 window.initGames = initGames;
