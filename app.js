@@ -747,7 +747,7 @@ function generateShareCard() {
   ctx.fillText('Fes el quiz tu tamb\u00e9! \u2193', W/2, H - 160);
   ctx.fillStyle = '#c45d35';
   ctx.font = '500 26px "Inter", sans-serif';
-  ctx.fillText('elcatalamanresa.cat', W/2, H - 120);
+  ctx.fillText('manre.site', W/2, H - 120);
 
   // Attribution
   ctx.fillStyle = 'rgba(237, 232, 224, 0.2)';
@@ -883,6 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
   populateQuestionSelect();
   initMap();
   initQuiz();
+  initGames();
   renderStatistics();
   renderExclusivityChart();
   renderCityRanking();
