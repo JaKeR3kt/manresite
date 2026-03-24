@@ -336,14 +336,25 @@ function generateMunicipisQuestion(targetMunicipi, diff) {
   const comarca = gameComarcaFilter;
   const allMunicipis = COMARQUES[comarca].municipis;
 
-  // Generate multiple choice (4 options)
+  // 1 correct + 3 distractors from OTHER comarques
   let options = [targetMunicipi];
-  const others = allMunicipis.filter(m => m !== targetMunicipi);
-  while (options.length < Math.min(4, allMunicipis.length)) {
-    const rand = others[Math.floor(Math.random() * others.length)];
-    if (!options.includes(rand)) options.push(rand);
+  // Collect all municipis from other comarques
+  let otherMunicipis = [];
+  Object.entries(COMARQUES).forEach(function(entry) {
+    if (entry[0] !== comarca) {
+      entry[1].municipis.forEach(function(m) {
+        otherMunicipis.push(m);
+      });
+    }
+  });
+  // Shuffle and pick 3 unique distractors
+  otherMunicipis.sort(function() { return Math.random() - 0.5; });
+  for (var i = 0; i < otherMunicipis.length && options.length < 4; i++) {
+    if (!options.includes(otherMunicipis[i])) {
+      options.push(otherMunicipis[i]);
+    }
   }
-  options.sort(() => Math.random() - 0.5);
+  options.sort(function() { return Math.random() - 0.5; });
 
   let hintsHtml = '';
   if (diff.showHint1) {
@@ -356,7 +367,7 @@ function generateMunicipisQuestion(targetMunicipi, diff) {
 
   return `
     <div class="game-question-text">Quin d'aquests municipis pertany a <strong>${comarca}</strong>?</div>
-    <div class="game-question-sub">Selecciona: <strong>${targetMunicipi}</strong></div>
+
     ${hintsHtml}
     <div class="game-options-grid">
       ${options.map(o => `
@@ -482,36 +493,48 @@ function showGameResult() {
 }
 
 function confirmResetGame() {
-  // Show confirmation overlay
-  const play = document.getElementById('game-play');
-  const existing = document.getElementById('reset-confirm-overlay');
+  var existing = document.getElementById('reset-confirm-overlay');
   if (existing) existing.remove();
 
-  const overlay = document.createElement('div');
+  var overlay = document.createElement('div');
   overlay.id = 'reset-confirm-overlay';
   overlay.className = 'reset-overlay';
-  overlay.innerHTML = `
-    <div class="reset-dialog">
-      <p>N'est\u00e0s segur que vols reiniciar la partida?</p>
-      <p class="reset-sub">Perdràs tot el progrés actual.</p>
-      <div class="reset-actions">
-        <button class="cta-btn" onclick="doResetGame()">Sí, reinicia</button>
-        <button class="cta-btn cta-secondary" onclick="cancelReset()">No, continua</button>
-      </div>
-    </div>
-  `;
-  play.appendChild(overlay);
-}
 
-function doResetGame() {
-  const overlay = document.getElementById('reset-confirm-overlay');
-  if (overlay) overlay.remove();
-  startGame();
-}
+  var dialog = document.createElement('div');
+  dialog.className = 'reset-dialog';
 
-function cancelReset() {
-  const overlay = document.getElementById('reset-confirm-overlay');
-  if (overlay) overlay.remove();
+  var p1 = document.createElement('p');
+  p1.textContent = "N'est\u00e0s segur que vols reiniciar la partida?";
+  dialog.appendChild(p1);
+
+  var p2 = document.createElement('p');
+  p2.className = 'reset-sub';
+  p2.textContent = 'Perdr\u00e0s tot el progr\u00e9s actual.';
+  dialog.appendChild(p2);
+
+  var actions = document.createElement('div');
+  actions.className = 'reset-actions';
+
+  var yesBtn = document.createElement('button');
+  yesBtn.className = 'cta-btn';
+  yesBtn.textContent = 'S\u00ed, reinicia';
+  yesBtn.addEventListener('click', function() {
+    overlay.remove();
+    startGame();
+  });
+  actions.appendChild(yesBtn);
+
+  var noBtn = document.createElement('button');
+  noBtn.className = 'cta-btn cta-secondary';
+  noBtn.textContent = 'No, continua';
+  noBtn.addEventListener('click', function() {
+    overlay.remove();
+  });
+  actions.appendChild(noBtn);
+
+  dialog.appendChild(actions);
+  overlay.appendChild(dialog);
+  document.body.appendChild(overlay);
 }
 
 function restartGame() {
@@ -573,7 +596,5 @@ window.guessMunicipi = guessMunicipi;
 window.restartGame = restartGame;
 window.backToSetup = backToSetup;
 window.confirmResetGame = confirmResetGame;
-window.doResetGame = doResetGame;
-window.cancelReset = cancelReset;
 window.showRandomFact = showRandomFact;
 window.initGames = initGames;

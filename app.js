@@ -878,12 +878,226 @@ function restartQuiz() {
   document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
 }
 
+// ============================================
+// INSTALL BANNER + NOTIFICATIONS
+// ============================================
+
+var installDeferredPrompt = null;
+
+function initInstallBanner() {
+  var banner = document.getElementById('install-banner');
+  if (!banner) return;
+
+  // Don't show if already in standalone mode (already installed)
+  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) return;
+
+  // Don't show if dismissed recently (check cookie-like flag)
+  if (window._installDismissed) return;
+
+  // Detect platform
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var isAndroid = /Android/.test(ua);
+  var isChrome = /Chrome/.test(ua) && !/Edge|Edg/.test(ua);
+
+  // Listen for Chrome/Android install prompt
+  window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    installDeferredPrompt = e;
+  });
+
+  // Show after 3 seconds
+  setTimeout(function() {
+    var stepsEl = document.getElementById('install-steps');
+    var actionBtn = document.getElementById('install-action-btn');
+
+    if (isIOS) {
+      stepsEl.innerHTML = makeSteps([
+        'Toca la icona de <strong>compartir</strong> (el quadrat amb la fletxa \u2191) a la barra de Safari',
+        'Despl\u00e7a cap avall i toca <strong>\"Afegir a la pantalla d\'inici\"</strong>',
+        'Confirma el nom <strong>\"ManreSite\"</strong> i toca <strong>Afegir</strong>'
+      ]);
+      actionBtn.textContent = 'Entesos!';
+      actionBtn.addEventListener('click', function() {
+        showNotifOption(banner);
+      });
+    } else if (installDeferredPrompt) {
+      stepsEl.innerHTML = '';
+      actionBtn.textContent = "Instal\u00b7lar l'app";
+      actionBtn.addEventListener('click', function() {
+        installDeferredPrompt.prompt();
+        installDeferredPrompt.userChoice.then(function() {
+          installDeferredPrompt = null;
+          showNotifOption(banner);
+        });
+      });
+    } else if (isAndroid && isChrome) {
+      stepsEl.innerHTML = makeSteps([
+        'Toca el men\u00fa <strong>\u22ee</strong> (tres punts) a la cantonada superior dreta',
+        'Selecciona <strong>\"Afegir a la pantalla d\'inici\"</strong> o <strong>\"Instal\u00b7lar aplicaci\u00f3\"</strong>',
+        'Confirma tocant <strong>Instal\u00b7lar</strong>'
+      ]);
+      actionBtn.textContent = 'Entesos!';
+      actionBtn.addEventListener('click', function() {
+        showNotifOption(banner);
+      });
+    } else {
+      // Desktop or unknown
+      stepsEl.innerHTML = makeSteps([
+        'Al navegador, busca la icona d\'instal\u00b7laci\u00f3 a la barra d\'adreces',
+        'O ves al men\u00fa del navegador i selecciona <strong>\"Instal\u00b7lar\"</strong>'
+      ]);
+      actionBtn.textContent = 'Entesos!';
+      actionBtn.addEventListener('click', function() {
+        showNotifOption(banner);
+      });
+    }
+
+    banner.classList.remove('hidden');
+  }, 3000);
+
+  // Close / Later buttons
+  document.getElementById('install-close').addEventListener('click', function() {
+    banner.classList.add('hidden');
+    window._installDismissed = true;
+  });
+  document.getElementById('install-later').addEventListener('click', function() {
+    banner.classList.add('hidden');
+    window._installDismissed = true;
+  });
+}
+
+function makeSteps(steps) {
+  return steps.map(function(text, i) {
+    return '<div class="install-step"><span class="install-step-num">' + (i+1) + '</span><span>' + text + '</span></div>';
+  }).join('');
+}
+
+function showNotifOption(banner) {
+  // Replace content with notification option
+  var stepsEl = document.getElementById('install-steps');
+  var actionsEl = banner.querySelector('.install-actions');
+  var textEl = banner.querySelector('.install-text');
+
+  if (!('Notification' in window)) {
+    // Notifications not supported
+    banner.classList.add('hidden');
+    window._installDismissed = true;
+    return;
+  }
+
+  textEl.innerHTML = '<h3>\ud83d\udd14 Curiositats di\u00e0ries</h3><p>Vols rebre cada dia a les 8 del mat\u00ed una curiositat sobre la Catalunya Central?</p>';
+  stepsEl.innerHTML = '';
+
+  actionsEl.innerHTML = '';
+  var yesBtn = document.createElement('button');
+  yesBtn.className = 'notif-btn';
+  yesBtn.textContent = '\ud83d\udd14 Activa notificacions';
+  yesBtn.addEventListener('click', function() {
+    requestNotifPermission(banner);
+  });
+  actionsEl.appendChild(yesBtn);
+
+  var noBtn = document.createElement('button');
+  noBtn.className = 'install-later';
+  noBtn.textContent = 'No, gr\u00e0cies';
+  noBtn.addEventListener('click', function() {
+    banner.classList.add('hidden');
+    window._installDismissed = true;
+  });
+  actionsEl.appendChild(noBtn);
+}
+
+function requestNotifPermission(banner) {
+  Notification.requestPermission().then(function(permission) {
+    if (permission === 'granted') {
+      // Schedule daily notification
+      scheduleDailyNotification();
+
+      var textEl = banner.querySelector('.install-text');
+      textEl.innerHTML = '<h3>\u2705 Notificacions activades!</h3><p>Rebr\u00e0s una curiositat cada dia a les 8 del mat\u00ed. Pots desactivar-les des de la configuraci\u00f3 del navegador.</p>';
+      banner.querySelector('.install-actions').innerHTML = '';
+
+      setTimeout(function() {
+        banner.classList.add('hidden');
+        window._installDismissed = true;
+      }, 3000);
+
+      // Show a test notification
+      showDailyNotification();
+    } else {
+      banner.classList.add('hidden');
+      window._installDismissed = true;
+    }
+  });
+}
+
+function getDailyFunFact() {
+  // Same logic as in games.js
+  var now = new Date();
+  var dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+  var facts = [
+    'El Bages \u00e9s conegut com \u00abel cor de Catalunya\u00bb per la seva situaci\u00f3 geogr\u00e0fica central.',
+    'La S\u00e8quia de Manresa, constru\u00efda al segle XIV, t\u00e9 26 km i porta aigua del Llobregat a la ciutat.',
+    'Montserrat rep m\u00e9s de 2,5 milions de visitants cada any.',
+    'La muntanya de sal de Cardona \u00e9s un fenomen geol\u00f2gic \u00fanic al m\u00f3n.',
+    'La Patum de Berga, Patrimoni Immaterial de la Humanitat (UNESCO, 2005).',
+    'Vic \u00e9s famosa per les boires persistents a l\'hivern per inversi\u00f3 t\u00e8rmica.',
+    'El Moian\u00e8s \u00e9s la comarca m\u00e9s jove de Catalunya, creada el 2015.',
+    'Sant Ignasi de Loiola va tenir les seves visions m\u00edstiques a Manresa el 1522.',
+    'El Geoparc de la Catalunya Central \u00e9s Geoparc Mundial UNESCO des del 2012.',
+    'Igualada \u00e9s la capital europea de la pell i el cuir.',
+    'El Pont Vell de Manresa \u00e9s un dels ponts rom\u00e0nics m\u00e9s ben conservats de Catalunya.',
+    'Les Comarques Centrals tenen un 89,3% de poblaci\u00f3 que sap parlar catal\u00e0.',
+    'La paraula \u00abpipiripip\u00bb per la rosella \u00e9s gaireb\u00e9 exclusiva del Bages.',
+    'Santpedor t\u00e9 un \u00edndex manesr\u00e0 (75,4%) m\u00e9s alt que Manresa (73,6%).',
+    'El Carnaval de Solsona \u00e9s fam\u00f3s per penjar un ruc del campanar.',
+  ];
+  return facts[dayOfYear % facts.length];
+}
+
+function showDailyNotification() {
+  if (Notification.permission === 'granted') {
+    var fact = getDailyFunFact();
+    new Notification('\ud83d\udca1 ManreSite \u2014 Sabies que...', {
+      body: fact,
+      icon: './assets/icon-192.png',
+      badge: './assets/icon-192.png',
+      tag: 'daily-fact'
+    });
+  }
+}
+
+function scheduleDailyNotification() {
+  // Calculate ms until next 8:00 AM
+  var now = new Date();
+  var next8am = new Date(now);
+  next8am.setHours(8, 0, 0, 0);
+  if (now >= next8am) {
+    next8am.setDate(next8am.getDate() + 1);
+  }
+  var msUntil = next8am - now;
+
+  // Set timeout for first notification
+  setTimeout(function() {
+    showDailyNotification();
+    // Then repeat every 24h
+    setInterval(showDailyNotification, 24 * 60 * 60 * 1000);
+  }, msUntil);
+}
+
+// If notifications already granted, schedule them
+if ('Notification' in window && Notification.permission === 'granted') {
+  scheduleDailyNotification();
+}
+
 // ---- INIT ----
 document.addEventListener('DOMContentLoaded', () => {
   populateQuestionSelect();
   initMap();
   initQuiz();
   initGames();
+  initInstallBanner();
   renderStatistics();
   renderExclusivityChart();
   renderCityRanking();

@@ -16,14 +16,53 @@
 <meta property="og:see_also" content="https://www.perplexity.ai/computer">
 <link rel="author" href="https://www.perplexity.ai/computer">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>El Català Manresà — Atles Lingüístic Interactiu</title>
+
+<!-- PWA / Add to Home Screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Català Manresà">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1a1612">
+<meta name="description" content="Atles lingüístic interactiu del parlar manresà. Quiz, jocs i mapa de 20 variants lèxiques.">
+<link rel="apple-touch-icon" href="./assets/icon-180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="./assets/icon-152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/icon-180.png">
+<link rel="apple-touch-icon" sizes="167x167" href="./assets/icon-167.png">
+<link rel="manifest" href="./manifest.json">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+
+<!-- Install App Banner -->
+<div id="install-banner" class="install-banner hidden">
+  <div class="install-banner-inner">
+    <button class="install-close" id="install-close" aria-label="Tancar">✕</button>
+    <div class="install-icon">
+      <svg viewBox="0 0 48 48" width="48" height="48">
+        <rect width="48" height="48" rx="12" fill="#1a1612"/>
+        <path d="M10 32 Q16 22 22 32" fill="none" stroke="#c45d35" stroke-width="2" stroke-linecap="round"/>
+        <path d="M18 32 Q24 20 30 32" fill="none" stroke="#c45d35" stroke-width="2" stroke-linecap="round"/>
+        <path d="M26 32 Q32 22 38 32" fill="none" stroke="#c45d35" stroke-width="2" stroke-linecap="round"/>
+        <line x1="8" y1="32" x2="40" y2="32" stroke="#c45d35" stroke-width="2"/>
+        <path d="M24 14 C24 11 20 9 20 12 C20 15 24 18 24 18 C24 18 28 15 28 12 C28 9 24 11 24 14Z" fill="#c45d35"/>
+      </svg>
+    </div>
+    <div class="install-text">
+      <h3>Instal·la ManreSite</h3>
+      <p>Afegeix l'app a la teva pantalla d'inici i rep curiositats diàries sobre la Catalunya Central.</p>
+    </div>
+    <div class="install-steps" id="install-steps"></div>
+    <div class="install-actions">
+      <button class="cta-btn" id="install-action-btn">Com instal·lar</button>
+      <button class="install-later" id="install-later">Ara no</button>
+    </div>
+  </div>
+</div>
 
 <header class="site-header">
   <div class="header-inner">
